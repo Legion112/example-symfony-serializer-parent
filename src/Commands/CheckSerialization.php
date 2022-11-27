@@ -27,7 +27,7 @@ class CheckSerialization extends Command
         $childRequest = new ChildRequest('143234', 'child');
         $parentRequest = new BaseRequest('134324', 'otherType');
         dd(
-//            $this->serializer->serialize($childRequest, 'json'),
+            $this->serializer->serialize($childRequest, 'json'),
             $this->serializer->serialize($parentRequest, 'json')
         );
 
