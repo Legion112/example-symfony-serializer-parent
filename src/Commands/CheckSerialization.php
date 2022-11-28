@@ -5,6 +5,10 @@ namespace App\Commands;
 
 use App\DTO\BaseRequest;
 use App\DTO\ChildRequest;
+use App\DTO\ChildSecondRequest;
+use App\DTO\DefaultStructure;
+use App\DTO\Details\ChildDetails;
+use App\DTO\Details\ChildSecondDetail;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,11 +28,13 @@ class CheckSerialization extends Command
 
     public function execute(InputInterface $input, OutputInterface $output):int
     {
-        $childRequest = new ChildRequest('143234', 'child');
-        $parentRequest = new BaseRequest('134324', 'otherType');
+        $childRequest = new ChildSecondRequest('143234', 'child', new ChildSecondDetail('else'));
+        $parentRequest = new DefaultStructure('134324', 'otherType');
+        $another = new ChildRequest('134324', 'otherType', new ChildDetails('I am '));
         dd(
             $this->serializer->serialize($childRequest, 'json'),
-            $this->serializer->serialize($parentRequest, 'json')
+            $this->serializer->serialize($parentRequest, 'json'),
+            $this->serializer->serialize($another, 'json'),
         );
 
         return self::SUCCESS;
